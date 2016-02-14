@@ -5,14 +5,14 @@
 
 // QString::fromUtf8(isTeam1)
 
+using namespace std;
 QTcpSocket *clientSock;
 
 void joCirclenXapp::clientSend() {
-	QString msg(ui.messageEdit->text().toUtf8());
+	QString msg(ui.messageEdit->text());
 	QByteArray msgbyte = msg.toUtf8();
 	clientSock->write(msgbyte);
 }
-
 
 
 void joCirclenXapp::readFromServ() {
@@ -24,8 +24,6 @@ void joCirclenXapp::readFromServ() {
 	ui.messageBox->append(str);
 
 	int x = str.split(" ")[0].toInt();
-
-	
 }
 
 
@@ -37,8 +35,6 @@ void joCirclenXapp::startClient() {
 
 	//QString text = "Wybierz slot gracza:";	//ui.fJoinToServ->setText(text);	//unlockButtons();
 }
-
-
 
 
 joCirclenXapp::joCirclenXapp(QWidget *parent)

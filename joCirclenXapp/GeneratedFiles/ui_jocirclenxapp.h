@@ -31,11 +31,11 @@ class Ui_joCirclenXappClass
 {
 public:
     QWidget *centralWidget;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *messageLabel;
     QTextEdit *messageBox;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *messageEdit;
     QPushButton *sendButton;
@@ -50,38 +50,38 @@ public:
         joCirclenXappClass->resize(600, 400);
         centralWidget = new QWidget(joCirclenXappClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(320, 40, 258, 213));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(320, 40, 258, 213));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        messageLabel = new QLabel(widget);
+        messageLabel = new QLabel(layoutWidget);
         messageLabel->setObjectName(QStringLiteral("messageLabel"));
 
         verticalLayout->addWidget(messageLabel);
 
-        messageBox = new QTextEdit(widget);
+        messageBox = new QTextEdit(layoutWidget);
         messageBox->setObjectName(QStringLiteral("messageBox"));
 
         verticalLayout->addWidget(messageBox);
 
-        widget1 = new QWidget(centralWidget);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 20, 135, 51));
-        verticalLayout_2 = new QVBoxLayout(widget1);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 20, 135, 51));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        messageEdit = new QLineEdit(widget1);
+        messageEdit = new QLineEdit(layoutWidget1);
         messageEdit->setObjectName(QStringLiteral("messageEdit"));
 
         verticalLayout_2->addWidget(messageEdit);
 
-        sendButton = new QPushButton(widget1);
+        sendButton = new QPushButton(layoutWidget1);
         sendButton->setObjectName(QStringLiteral("sendButton"));
 
         verticalLayout_2->addWidget(sendButton);

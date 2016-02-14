@@ -14,16 +14,19 @@ class joCirclenXapp : public QMainWindow
 	Q_OBJECT
 
 public:
-
-
-	void clientSend();
-	void readFromServ();
-	void startClient();
 	joCirclenXapp(QWidget *parent = 0);
 	~joCirclenXapp();
 
+public slots:
+	void clientSend();
+	void readFromServ();
+	void startClient();
+
+
 private:
 	Ui::joCirclenXappClass ui;
+
+
 };
 
 #endif // JOCIRCLENXAPP_H
