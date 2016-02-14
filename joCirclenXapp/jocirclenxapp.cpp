@@ -45,6 +45,7 @@ joCirclenXapp::joCirclenXapp(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	startClient();
 	QObject::connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(clientSend()));
 }
 
