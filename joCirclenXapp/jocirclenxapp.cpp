@@ -39,6 +39,7 @@ void joCirclenXapp::fillLCD(string tabq){
 	vector<int> tab;
 	for (int i = 0; i < tabl.size(); i++)
 		tab.push_back(tabl[i] - (int)48);
+
 	ui.messageEdit->setText(QString::number(tab.size()));
 	ui.lcd1->setText(QString::number(tab[0]));
 	ui.lcd2->setText(QString::number(tab[1]));
