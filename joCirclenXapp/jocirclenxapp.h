@@ -6,7 +6,8 @@
 #include <QWidget>
 #include <QtNetwork>
 //#include <iostream>
-//#include <string>
+#include <ctype.h>
+#include <string>
 //#include <vector>
 
 class joCirclenXapp : public QMainWindow
@@ -21,9 +22,12 @@ public slots:
 
 	bool chooseTeam(int t);
 	void clientSend();
+	void fillLCD(std::string tab);
 	void initClient();
 	void readFromServ();
 	void sendTeam(int t);
+	void readFromLabel();
+	void sendMove(QString move);
 
 	void setMove1();
 	void setMove2();
@@ -38,6 +42,7 @@ public slots:
 	void startClient();
 	void team1();
 	void team2();
+	//bool validateMsg(string lcdArray);
 
 private:
 	Ui::joCirclenXappClass ui;
