@@ -18,10 +18,26 @@ public:
 	~joCirclenXapp();
 
 public slots:
-	void clientSend();
-	void readFromServ();
-	void startClient();
 
+	bool chooseTeam(int t);
+	void clientSend();
+	void initClient();
+	void readFromServ();
+	void sendTeam(int t);
+
+	void setMove1();
+	void setMove2();
+	void setMove3();
+	void setMove4();
+	void setMove5();
+	void setMove6();
+	void setMove7();
+	void setMove8();
+	void setMove9();
+
+	void startClient();
+	void team1();
+	void team2();
 
 private:
 	Ui::joCirclenXappClass ui;

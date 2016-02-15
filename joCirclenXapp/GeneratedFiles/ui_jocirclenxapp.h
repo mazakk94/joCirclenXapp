@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -31,14 +32,31 @@ class Ui_joCirclenXappClass
 {
 public:
     QWidget *centralWidget;
-    QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
-    QLabel *messageLabel;
     QTextEdit *messageBox;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_2;
-    QLineEdit *messageEdit;
+    QLabel *messageLabel;
+    QLabel *teamLabel;
+    QLabel *label_2;
+    QPushButton *team2;
+    QPushButton *team1;
+    QLabel *label;
     QPushButton *sendButton;
+    QLineEdit *messageEdit;
+    QWidget *layoutWidget;
+    QVBoxLayout *X;
+    QHBoxLayout *O1;
+    QPushButton *b1;
+    QPushButton *b2;
+    QPushButton *b3;
+    QHBoxLayout *O2;
+    QPushButton *b4;
+    QPushButton *b5;
+    QPushButton *b6;
+    QHBoxLayout *O3;
+    QPushButton *b7;
+    QPushButton *b8;
+    QPushButton *b9;
+    QLabel *moveLabel;
+    QLabel *label_3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -47,49 +65,127 @@ public:
     {
         if (joCirclenXappClass->objectName().isEmpty())
             joCirclenXappClass->setObjectName(QStringLiteral("joCirclenXappClass"));
-        joCirclenXappClass->resize(600, 400);
+        joCirclenXappClass->resize(548, 436);
         centralWidget = new QWidget(joCirclenXappClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        messageBox = new QTextEdit(centralWidget);
+        messageBox->setObjectName(QStringLiteral("messageBox"));
+        messageBox->setGeometry(QRect(270, 40, 256, 192));
+        messageLabel = new QLabel(centralWidget);
+        messageLabel->setObjectName(QStringLiteral("messageLabel"));
+        messageLabel->setGeometry(QRect(280, 20, 256, 13));
+        teamLabel = new QLabel(centralWidget);
+        teamLabel->setObjectName(QStringLiteral("teamLabel"));
+        teamLabel->setGeometry(QRect(140, 60, 91, 46));
+        QFont font;
+        font.setFamily(QStringLiteral("Verdana"));
+        font.setPointSize(12);
+        font.setBold(true);
+        font.setWeight(75);
+        teamLabel->setFont(font);
+        teamLabel->setCursor(QCursor(Qt::WhatsThisCursor));
+        teamLabel->setAutoFillBackground(false);
+        teamLabel->setAlignment(Qt::AlignCenter);
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(140, 27, 91, 47));
+        team2 = new QPushButton(centralWidget);
+        team2->setObjectName(QStringLiteral("team2"));
+        team2->setGeometry(QRect(20, 90, 81, 23));
+        team1 = new QPushButton(centralWidget);
+        team1->setObjectName(QStringLiteral("team1"));
+        team1->setGeometry(QRect(20, 61, 81, 23));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(19, 15, 101, 39));
+        sendButton = new QPushButton(centralWidget);
+        sendButton->setObjectName(QStringLiteral("sendButton"));
+        sendButton->setGeometry(QRect(20, 180, 221, 23));
+        messageEdit = new QLineEdit(centralWidget);
+        messageEdit->setObjectName(QStringLiteral("messageEdit"));
+        messageEdit->setGeometry(QRect(20, 150, 211, 20));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(320, 40, 258, 213));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        messageLabel = new QLabel(layoutWidget);
-        messageLabel->setObjectName(QStringLiteral("messageLabel"));
+        layoutWidget->setGeometry(QRect(40, 240, 131, 111));
+        X = new QVBoxLayout(layoutWidget);
+        X->setSpacing(0);
+        X->setContentsMargins(11, 11, 11, 11);
+        X->setObjectName(QStringLiteral("X"));
+        X->setContentsMargins(0, 0, 0, 0);
+        O1 = new QHBoxLayout();
+        O1->setSpacing(0);
+        O1->setObjectName(QStringLiteral("O1"));
+        b1 = new QPushButton(layoutWidget);
+        b1->setObjectName(QStringLiteral("b1"));
 
-        verticalLayout->addWidget(messageLabel);
+        O1->addWidget(b1);
 
-        messageBox = new QTextEdit(layoutWidget);
-        messageBox->setObjectName(QStringLiteral("messageBox"));
+        b2 = new QPushButton(layoutWidget);
+        b2->setObjectName(QStringLiteral("b2"));
 
-        verticalLayout->addWidget(messageBox);
+        O1->addWidget(b2);
 
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 20, 135, 51));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        messageEdit = new QLineEdit(layoutWidget1);
-        messageEdit->setObjectName(QStringLiteral("messageEdit"));
+        b3 = new QPushButton(layoutWidget);
+        b3->setObjectName(QStringLiteral("b3"));
 
-        verticalLayout_2->addWidget(messageEdit);
+        O1->addWidget(b3);
 
-        sendButton = new QPushButton(layoutWidget1);
-        sendButton->setObjectName(QStringLiteral("sendButton"));
 
-        verticalLayout_2->addWidget(sendButton);
+        X->addLayout(O1);
 
+        O2 = new QHBoxLayout();
+        O2->setSpacing(0);
+        O2->setObjectName(QStringLiteral("O2"));
+        b4 = new QPushButton(layoutWidget);
+        b4->setObjectName(QStringLiteral("b4"));
+
+        O2->addWidget(b4);
+
+        b5 = new QPushButton(layoutWidget);
+        b5->setObjectName(QStringLiteral("b5"));
+
+        O2->addWidget(b5);
+
+        b6 = new QPushButton(layoutWidget);
+        b6->setObjectName(QStringLiteral("b6"));
+
+        O2->addWidget(b6);
+
+
+        X->addLayout(O2);
+
+        O3 = new QHBoxLayout();
+        O3->setSpacing(0);
+        O3->setObjectName(QStringLiteral("O3"));
+        b7 = new QPushButton(layoutWidget);
+        b7->setObjectName(QStringLiteral("b7"));
+
+        O3->addWidget(b7);
+
+        b8 = new QPushButton(layoutWidget);
+        b8->setObjectName(QStringLiteral("b8"));
+
+        O3->addWidget(b8);
+
+        b9 = new QPushButton(layoutWidget);
+        b9->setObjectName(QStringLiteral("b9"));
+
+        O3->addWidget(b9);
+
+
+        X->addLayout(O3);
+
+        moveLabel = new QLabel(centralWidget);
+        moveLabel->setObjectName(QStringLiteral("moveLabel"));
+        moveLabel->setGeometry(QRect(220, 280, 72, 20));
+        moveLabel->setAlignment(Qt::AlignCenter);
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(220, 250, 72, 32));
         joCirclenXappClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(joCirclenXappClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuBar->setGeometry(QRect(0, 0, 548, 21));
         joCirclenXappClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(joCirclenXappClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -107,7 +203,23 @@ public:
     {
         joCirclenXappClass->setWindowTitle(QApplication::translate("joCirclenXappClass", "joCirclenXapp", 0));
         messageLabel->setText(QApplication::translate("joCirclenXappClass", "Message From Server:", 0));
+        teamLabel->setText(QApplication::translate("joCirclenXappClass", "0", 0));
+        label_2->setText(QApplication::translate("joCirclenXappClass", "DRU\305\273YNA GRACZA", 0));
+        team2->setText(QApplication::translate("joCirclenXappClass", "2", 0));
+        team1->setText(QApplication::translate("joCirclenXappClass", "1", 0));
+        label->setText(QApplication::translate("joCirclenXappClass", "Do\305\202\304\205cz do dru\305\274yny", 0));
         sendButton->setText(QApplication::translate("joCirclenXappClass", "Send Message", 0));
+        b1->setText(QString());
+        b2->setText(QString());
+        b3->setText(QString());
+        b4->setText(QString());
+        b5->setText(QString());
+        b6->setText(QString());
+        b7->setText(QString());
+        b8->setText(QString());
+        b9->setText(QString());
+        moveLabel->setText(QApplication::translate("joCirclenXappClass", "0", 0));
+        label_3->setText(QApplication::translate("joCirclenXappClass", "Wybrany ruch:", 0));
     } // retranslateUi
 
 };
