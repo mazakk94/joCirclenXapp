@@ -24,14 +24,16 @@ public slots:
 	bool chooseTeam(int t);
 	void clientSend();
 	void fillLCD(std::string tab);
-	std::string getGameState(QString msg);
+	std::string getVoteState(QString msg);
 	std::string getTurn(std::string withoutState);
+	std::string getGameState(std::string withoutTurn);
 	void initClient();
 	void readFromServ();
 	void sendTeam(int t);
 	void readFromLabel();
 	void sendMove(QString move);
 	void setTurn(int turn);
+	void setElement(int i, int element);
 	void setVisibleLabel();
 
 	void setMove1();

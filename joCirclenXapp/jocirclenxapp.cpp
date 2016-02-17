@@ -53,7 +53,16 @@ void joCirclenXapp::fillLCD(string tabq){
 	ui.lcd9->setText(QString::number(tab[8]));
 }
 
-string joCirclenXapp::getGameState(QString msg){
+string joCirclenXapp::getGameState(string withoutTurn){
+	string game = withoutTurn.substr(0, 9);
+	for (int i = 0; i < game.length(); i++){
+		setElement(i, game[i]);
+	}
+
+	return withoutTurn.substr(9);
+}
+
+string joCirclenXapp::getVoteState(QString msg){
 	string new_message = "";
 
 	string lcdArray = "";
@@ -129,16 +138,17 @@ void joCirclenXapp::readFromServ() {
 	QByteArray temp = clientSock->readAll();
 	QString msg(temp);
 	//ui.messageBox->append("Przed getGameState: " + msg);
-	string withoutState = getGameState(msg); //zwraca pozostala wiadomosc bez stanu gry
+	string withoutState = getVoteState(msg); //zwraca pozostala wiadomosc bez stanu gry
 	//ui.messageBox->append("Przed getTurn: " + QString::fromStdString(withoutState));
 	string withoutTurn = getTurn(withoutState);
-	ui.messageBox->append(QString::fromStdString(withoutTurn));
-	if (this->turn == team || turn == 0){
+	string withoutGame = getGameState(withoutTurn);
+	ui.messageBox->append(QString::fromStdString(withoutGame));
+
+	if (this->turn == team || turn == 0)
 		ui.fillLabel->setVisible(false);
-	}
-	else {
+	else 
 		ui.fillLabel->setVisible(true);
-	}
+	
 
 	//ui.messageBox->append(str);
 
@@ -176,6 +186,42 @@ void joCirclenXapp::sendMove(QString move){
 	else {
 		QString str("wybierz team!");
 		ui.messageBox->append(str);
+	}
+}
+
+void joCirclenXapp::setElement(int i, int element){
+	int num = element - 48;
+
+	switch (i){
+	case 1:
+		ui.b1->setText(QString::number(num));
+		break;
+	case 2:
+		ui.b2->setText(QString::number(num));
+		break;
+	case 3:
+		ui.b3->setText(QString::number(num));
+		break;
+	case 4:
+		ui.b4->setText(QString::number(num));
+		break;
+	case 5:
+		ui.b5->setText(QString::number(num));
+		break;
+	case 6:
+		ui.b6->setText(QString::number(num));
+		break;
+	case 7:
+		ui.b7->setText(QString::number(num));
+		break;
+	case 8:
+		ui.b8->setText(QString::number(num));
+		break;
+	case 9:
+		ui.b9->setText(QString::number(num));
+		break;
+	default:
+		ui.messageBox->append("nie wiada czemu: " + QString::number(num));
 	}
 }
 
