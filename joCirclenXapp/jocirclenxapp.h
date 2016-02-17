@@ -17,17 +17,22 @@ class joCirclenXapp : public QMainWindow
 public:
 	joCirclenXapp(QWidget *parent = 0);
 	~joCirclenXapp();
+	int turn = 0;
 
 public slots:
 
 	bool chooseTeam(int t);
 	void clientSend();
 	void fillLCD(std::string tab);
+	std::string getGameState(QString msg);
+	std::string getTurn(std::string withoutState);
 	void initClient();
 	void readFromServ();
 	void sendTeam(int t);
 	void readFromLabel();
 	void sendMove(QString move);
+	void setTurn(int turn);
+	void setVisibleLabel();
 
 	void setMove1();
 	void setMove2();
@@ -45,6 +50,7 @@ public slots:
 	//bool validateMsg(string lcdArray);
 
 private:
+	
 	Ui::joCirclenXappClass ui;
 
 

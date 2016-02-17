@@ -1,10 +1,11 @@
 #include "jocirclenxapp.h"
 #include <QMessageBox>
- //isdigit()
-//#include <string>
 
+/*
+TODO:
+[ ] blokowanie wyslania ruchu dopiero gdy dostaniemy info o tym ze zostal zaakceptowany - wysylamy ruch
 
-// QString::fromUtf8(isTeam1)
+*/
 
 using namespace std;
 
@@ -52,6 +53,51 @@ void joCirclenXapp::fillLCD(string tabq){
 	ui.lcd9->setText(QString::number(tab[8]));
 }
 
+string joCirclenXapp::getGameState(QString msg){
+	string new_message = "";
+
+	string lcdArray = "";
+	if (msg.length() > 9){
+		lcdArray = msg.toStdString().substr(0, 9);	//pierwsze 9 znakow to stan planszy
+	} else {
+		QString tmp = "bledna wiadomosc z serwera" + QString::number(msg.length());
+		ui.messageBox->append(tmp);
+	}
+	bool flag = true;
+	for (int i = 0; i < lcdArray.size(); i++){
+		if (!isdigit(lcdArray[i])){
+			flag = false;
+			break;
+		}
+	}
+
+	if (flag)
+		fillLCD(lcdArray);
+	else 
+		ui.messageBox->append("bledna wiadomosc z serwera 2!");
+	
+	
+	if (msg.size()>9)
+		new_message = msg.toStdString().substr(9);  //od 9 znaku wiadomosc
+
+	return new_message;
+}
+
+string joCirclenXapp::getTurn(string withoutState){
+	
+	//ui.messageBox->append("Without state: " + QString::fromStdString(withoutState));
+	string new_msg = "";
+	
+	int turn = withoutState[0] - (int)48;
+	//ui.messageBox->append("Current turn: " + QString::number(turn));
+	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
+	setTurn(turn);
+	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
+	
+	new_msg = withoutState.substr(1);
+	return new_msg;
+}
+
 void joCirclenXapp::initClient(){
 	/*QString str("init");
 	ui.messageBox->append(str);*/
@@ -69,35 +115,30 @@ void joCirclenXapp::initClient(){
 
 }
 
+void joCirclenXapp::setVisibleLabel(){
+	if (ui.fillLabel->isVisible()){
+		ui.fillLabel->setVisible(false);
+	}
+	else {
+		ui.fillLabel->setVisible(true);
+	}
+}
+
 void joCirclenXapp::readFromServ() {
 
 	QByteArray temp = clientSock->readAll();
 	QString msg(temp);
-	
-	string lcdArray = "";
-	if (msg.length() > 9){
-		lcdArray = msg.toStdString().substr(0, 9);	//pierwsze 9 znakow to stan planszy
-	} else {
-		QString tmp = "bledna wiadomosc z serwera" + QString::number(msg.length());
-		ui.messageBox->append(tmp);
+	//ui.messageBox->append("Przed getGameState: " + msg);
+	string withoutState = getGameState(msg); //zwraca pozostala wiadomosc bez stanu gry
+	//ui.messageBox->append("Przed getTurn: " + QString::fromStdString(withoutState));
+	string withoutTurn = getTurn(withoutState);
+	ui.messageBox->append(QString::fromStdString(withoutTurn));
+	if (this->turn == team || turn == 0){
+		ui.fillLabel->setVisible(false);
 	}
-	bool flag = true;
-	for (int i = 0; i < lcdArray.size(); i++)
-		if (!isdigit(lcdArray[i]))
-			flag = false;
-	
-
-	if (flag){
-		fillLCD(lcdArray);
-	} else {
-		ui.messageBox->append("bledna wiadomosc z serwera 2!");
+	else {
+		ui.fillLabel->setVisible(true);
 	}
-	string newmsg = "";
-	if (msg.size()>9)
-		newmsg = msg.toStdString().substr(9);  //od 9 znaku wiadomosc
-	
-	QString str = QString::fromStdString(newmsg);
-	ui.messageBox->append(str);
 
 	//ui.messageBox->append(str);
 
@@ -136,6 +177,13 @@ void joCirclenXapp::sendMove(QString move){
 		QString str("wybierz team!");
 		ui.messageBox->append(str);
 	}
+}
+
+void joCirclenXapp::setTurn(int turn){
+	if (turn != this->turn){
+		playerMoved = false;
+	}
+	this->turn = turn;
 }
 
 void joCirclenXapp::setMove1(){
@@ -229,13 +277,16 @@ bool joCirclenXapp::validateMsg(string lcdArray){
 joCirclenXapp::joCirclenXapp(QWidget *parent)
 	: QMainWindow(parent)
 {
+	this->turn = 0;
 	ui.setupUi(this);
-	
+	ui.fillLabel->setVisible(false);
 	QObject::connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(clientSend()));
 	QObject::connect(ui.team1, SIGNAL(clicked()), this, SLOT(team1()));
 	QObject::connect(ui.team1, SIGNAL(clicked()), this, SLOT(initClient()));
 	QObject::connect(ui.team2, SIGNAL(clicked()), this, SLOT(team2()));
 	QObject::connect(ui.team2, SIGNAL(clicked()), this, SLOT(initClient()));
+	QObject::connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(setVisibleLabel()));
+	
 	{
 		QObject::connect(ui.b1, SIGNAL(clicked()), this, SLOT(setMove1()));
 		QObject::connect(ui.b2, SIGNAL(clicked()), this, SLOT(setMove2()));

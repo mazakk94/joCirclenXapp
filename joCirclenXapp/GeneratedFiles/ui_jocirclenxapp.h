@@ -68,6 +68,8 @@ public:
     QLabel *lcd7;
     QLabel *lcd8;
     QLabel *lcd9;
+    QLabel *fillLabel;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -237,6 +239,16 @@ public:
         lcd9->setObjectName(QStringLiteral("lcd9"));
         lcd9->setGeometry(QRect(510, 340, 31, 31));
         lcd9->setAlignment(Qt::AlignCenter);
+        fillLabel = new QLabel(centralWidget);
+        fillLabel->setObjectName(QStringLiteral("fillLabel"));
+        fillLabel->setEnabled(true);
+        fillLabel->setGeometry(QRect(10, 20, 531, 341));
+        fillLabel->setAutoFillBackground(true);
+        fillLabel->setAlignment(Qt::AlignCenter);
+        fillLabel->setWordWrap(false);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(240, 370, 75, 23));
         joCirclenXappClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(joCirclenXappClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -286,6 +298,8 @@ public:
         lcd7->setText(QApplication::translate("joCirclenXappClass", "0", 0));
         lcd8->setText(QApplication::translate("joCirclenXappClass", "0", 0));
         lcd9->setText(QApplication::translate("joCirclenXappClass", "0", 0));
+        fillLabel->setText(QApplication::translate("joCirclenXappClass", "Kolej dru\305\274yny przeciwnej", 0));
+        pushButton->setText(QApplication::translate("joCirclenXappClass", "Visible", 0));
     } // retranslateUi
 
 };
