@@ -5,6 +5,7 @@
 #include "ui_jocirclenxapp.h"
 #include <QWidget>
 #include <QtNetwork>
+#include <QMessageBox>
 //#include <iostream>
 #include <ctype.h>
 #include <string>

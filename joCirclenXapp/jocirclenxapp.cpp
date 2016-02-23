@@ -1,10 +1,13 @@
 #include "jocirclenxapp.h"
-#include <QMessageBox>
+
 
 /*
 TODO:
-[ ] blokowanie wyslania ruchu dopiero gdy dostaniemy info o tym ze zostal zaakceptowany - wysylamy ruch
-
+[x] blokowanie wyslania ruchu dopiero gdy dostaniemy info o tym ze zostal zaakceptowany - wysylamy ruch
+[ ] gui poprawic
+[ ] sprawdzic jak dziala na kilku kompach
+[ ] adres IP do wpisania
+[ ] problem z polaczeniem sie z serwerem - co wtedy?
 */
 
 using namespace std;
