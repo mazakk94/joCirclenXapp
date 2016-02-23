@@ -8,6 +8,7 @@ TODO:
 [ ] sprawdzic jak dziala na kilku kompach
 [ ] adres IP do wpisania
 [ ] problem z polaczeniem sie z serwerem - co wtedy?
+[ ] okno koñca gry - wyswietlanie kto wygral i propozycja rozpoczecia nowej gry
 */
 
 using namespace std;
@@ -218,6 +219,10 @@ void joCirclenXapp::sendMove(QString move){
 	}
 }
 
+void joCirclenXapp::showGameOver(){
+	QMessageBox::information(this, tr("Koniec gry!"), tr("Wygral gracz nr..."));
+}
+
 /* przypisujemy znaki na planszy do glosowania i blokujemy przyciski jak juz zostalo cos tam postawione*/
 void joCirclenXapp::setElement(int i, int element){
 	int num = element - 48;
@@ -338,6 +343,7 @@ joCirclenXapp::joCirclenXapp(QWidget *parent)
 	QObject::connect(ui.team2, SIGNAL(clicked()), this, SLOT(team2()));
 	QObject::connect(ui.team2, SIGNAL(clicked()), this, SLOT(initClient()));
 	QObject::connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(setVisibleLabel()));
+	QObject::connect(ui.showmsgbutton, SIGNAL(clicked()), this, SLOT(showGameOver()));
 	
 	{
 		QObject::connect(ui.b1, SIGNAL(clicked()), this, SLOT(setMove1()));

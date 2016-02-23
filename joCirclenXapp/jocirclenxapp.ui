@@ -484,6 +484,45 @@
      <string>Visible</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="showmsgbutton">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>370</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>show msg</string>
+    </property>
+   </widget>
+   <zorder>fillLabel</zorder>
+   <zorder>messageBox</zorder>
+   <zorder>messageLabel</zorder>
+   <zorder>teamLabel</zorder>
+   <zorder>label_2</zorder>
+   <zorder>team2</zorder>
+   <zorder>team1</zorder>
+   <zorder>label</zorder>
+   <zorder>sendButton</zorder>
+   <zorder>messageEdit</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>moveLabel</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>lcd1</zorder>
+   <zorder>lcd2</zorder>
+   <zorder>lcd3</zorder>
+   <zorder>lcd4</zorder>
+   <zorder>lcd5</zorder>
+   <zorder>lcd6</zorder>
+   <zorder>lcd7</zorder>
+   <zorder>lcd8</zorder>
+   <zorder>lcd9</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>showmsgbutton</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

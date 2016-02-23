@@ -70,6 +70,7 @@ public:
     QLabel *lcd9;
     QLabel *fillLabel;
     QPushButton *pushButton;
+    QPushButton *showmsgbutton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -249,7 +250,36 @@ public:
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(240, 370, 75, 23));
+        showmsgbutton = new QPushButton(centralWidget);
+        showmsgbutton->setObjectName(QStringLiteral("showmsgbutton"));
+        showmsgbutton->setGeometry(QRect(350, 370, 75, 23));
         joCirclenXappClass->setCentralWidget(centralWidget);
+        fillLabel->raise();
+        messageBox->raise();
+        messageLabel->raise();
+        teamLabel->raise();
+        label_2->raise();
+        team2->raise();
+        team1->raise();
+        label->raise();
+        sendButton->raise();
+        messageEdit->raise();
+        layoutWidget->raise();
+        moveLabel->raise();
+        label_3->raise();
+        label_4->raise();
+        label_5->raise();
+        lcd1->raise();
+        lcd2->raise();
+        lcd3->raise();
+        lcd4->raise();
+        lcd5->raise();
+        lcd6->raise();
+        lcd7->raise();
+        lcd8->raise();
+        lcd9->raise();
+        pushButton->raise();
+        showmsgbutton->raise();
         menuBar = new QMenuBar(joCirclenXappClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 548, 21));
@@ -300,6 +330,7 @@ public:
         lcd9->setText(QApplication::translate("joCirclenXappClass", "0", 0));
         fillLabel->setText(QApplication::translate("joCirclenXappClass", "Kolej dru\305\274yny przeciwnej", 0));
         pushButton->setText(QApplication::translate("joCirclenXappClass", "Visible", 0));
+        showmsgbutton->setText(QApplication::translate("joCirclenXappClass", "show msg", 0));
     } // retranslateUi
 
 };

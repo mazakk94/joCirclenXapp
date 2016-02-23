@@ -35,6 +35,7 @@ public slots:
 	void sendTeam(int t);
 	void readFromLabel();
 	void sendMove(QString move);
+	void showGameOver();
 	void setTurn(int turn);
 	void setElement(int i, int element);
 	void setVisibleLabel();
