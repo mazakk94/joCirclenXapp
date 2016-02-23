@@ -21,12 +21,14 @@ public:
 
 public slots:
 
+	void blockButtons();
 	bool chooseTeam(int t);
 	void clientSend();
 	void fillLCD(std::string tab);
 	std::string getVoteState(QString msg);
 	std::string getTurn(std::string withoutState);
 	std::string getGameState(std::string withoutTurn);
+	void initButtons();
 	void initClient();
 	void readFromServ();
 	void sendTeam(int t);

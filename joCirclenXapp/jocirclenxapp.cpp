@@ -10,10 +10,22 @@ TODO:
 using namespace std;
 
 QTcpSocket *clientSock;
+vector<QPushButton*> buttons;
 int team = 0;
 bool teamChosen = false;
 bool alreadyInit = false;
 bool playerMoved = false;
+
+void joCirclenXapp::blockButtons(){
+	
+	//buttons.push_back(ui.b1);
+	for each (QPushButton* button in buttons) {
+		if (button->text().toStdString().compare("0"))
+			button->setEnabled(false);
+		else
+			button->setEnabled(true);
+	}
+}
 
 bool joCirclenXapp::chooseTeam(int t){
 	if (!teamChosen){
@@ -54,9 +66,11 @@ void joCirclenXapp::fillLCD(string tabq){
 }
 
 string joCirclenXapp::getGameState(string withoutTurn){
-	string game = withoutTurn.substr(0, 9);
+	string game = "";
+	game += withoutTurn.substr(0, 9);
+	ui.messageBox->append(QString::fromStdString(game));
 	for (int i = 0; i < game.length(); i++){
-		setElement(i, game[i]);
+		setElement(i+1, game[i]);
 	}
 
 	return withoutTurn.substr(9);
@@ -105,6 +119,18 @@ string joCirclenXapp::getTurn(string withoutState){
 	
 	new_msg = withoutState.substr(1);
 	return new_msg;
+}
+
+void joCirclenXapp::initButtons(){
+	buttons.push_back(ui.b1);
+	buttons.push_back(ui.b2);
+	buttons.push_back(ui.b3);
+	buttons.push_back(ui.b4);
+	buttons.push_back(ui.b5);
+	buttons.push_back(ui.b6);
+	buttons.push_back(ui.b7);
+	buttons.push_back(ui.b8);
+	buttons.push_back(ui.b9);
 }
 
 void joCirclenXapp::initClient(){
@@ -189,40 +215,17 @@ void joCirclenXapp::sendMove(QString move){
 	}
 }
 
+/* przypisujemy znaki na planszy do glosowania i blokujemy przyciski jak juz zostalo cos tam postawione*/
 void joCirclenXapp::setElement(int i, int element){
 	int num = element - 48;
-
-	switch (i){
-	case 1:
-		ui.b1->setText(QString::number(num));
-		break;
-	case 2:
-		ui.b2->setText(QString::number(num));
-		break;
-	case 3:
-		ui.b3->setText(QString::number(num));
-		break;
-	case 4:
-		ui.b4->setText(QString::number(num));
-		break;
-	case 5:
-		ui.b5->setText(QString::number(num));
-		break;
-	case 6:
-		ui.b6->setText(QString::number(num));
-		break;
-	case 7:
-		ui.b7->setText(QString::number(num));
-		break;
-	case 8:
-		ui.b8->setText(QString::number(num));
-		break;
-	case 9:
-		ui.b9->setText(QString::number(num));
-		break;
-	default:
-		ui.messageBox->append("nie wiada czemu: " + QString::number(num));
-	}
+	//buttons.[i-1]
+	if (buttons.size() > i-1)
+		buttons.at(i - 1)->setText(QString::number(num));
+	else 
+		ui.messageBox->append("przekroczylbym rozmiar wektora! num: " + QString::number(num) 
+			+ ", i-1: " + QString::number(i) + ", size: " + QString::number(buttons.size()));
+	
+	blockButtons();
 }
 
 void joCirclenXapp::setTurn(int turn){
@@ -344,6 +347,7 @@ joCirclenXapp::joCirclenXapp(QWidget *parent)
 		QObject::connect(ui.b8, SIGNAL(clicked()), this, SLOT(setMove8()));
 		QObject::connect(ui.b9, SIGNAL(clicked()), this, SLOT(setMove9()));
 	}
+	initButtons();
 }
 
 joCirclenXapp::~joCirclenXapp() { }
