@@ -10,6 +10,7 @@ TODO:
 [ ] problem z polaczeniem sie z serwerem - co wtedy?
 [ ] okno koñca gry - wyswietlanie kto wygral i propozycja rozpoczecia nowej gry
 [ ] new game - wszystko wyczyscic i na nowo
+[ ] jezeli jest nowa gra to pokazujemy ukryty interfejs
 */
 
 using namespace std;
@@ -39,9 +40,6 @@ string joCirclenXapp::checkNewGame(QString msg){
 	ui.messageBox->append("str1: " + QString::fromStdString(str));
 	ui.messageBox->append("str2: " + QString::fromStdString(str2));
 	if (str.compare(str2) == 0){ //koniec gry! dostalismy info od serwera
-
-		showGameOver();
-		newGame();
 		ui.messageBox->append("string returnowany" + QString::fromStdString(msg.toStdString().substr(3)));
 		return msg.toStdString().substr(3);
 	} else {
@@ -91,9 +89,7 @@ string joCirclenXapp::getGameState(string withoutTurn){
 	string game = "";
 	game += withoutTurn.substr(0, 9);
 	ui.messageBox->append(QString::fromStdString(game));
-	for (int i = 0; i < game.length(); i++){
-		setElement(i+1, game[i]);
-	}
+	
 
 	return withoutTurn.substr(9);
 }
@@ -133,12 +129,6 @@ string joCirclenXapp::getTurn(string withoutState){
 	//ui.messageBox->append("Without state: " + QString::fromStdString(withoutState));
 	string new_msg = "";
 	
-	int turn = withoutState[0] - (int)48;
-	//ui.messageBox->append("Current turn: " + QString::number(turn));
-	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
-	setTurn(turn);
-	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
-	
 	new_msg = withoutState.substr(1);
 	return new_msg;
 }
@@ -161,6 +151,7 @@ void joCirclenXapp::initClient(){
 	ui.messageBox->append(str);*/
 	if (!alreadyInit){
 		if (chooseTeam(team)) {
+			ui.messageBox->append("team = " + QString::number(team));
 			if (!connected){
 				startClient();
 			}
@@ -175,22 +166,32 @@ void joCirclenXapp::initClient(){
 
 }
 
+bool joCirclenXapp::isNewGame(QString msg){
+	
+	string str = msg.toStdString().substr(0, 3);
+	string str2 = "new";
+	if (str.compare(str2) == 0)
+		return true;
+	else 
+		return false;
+}
+
 void joCirclenXapp::newGame(){
 	ui.messageBox->append("new game");
 	ui.teamLabel->setText(QString::number(0));
 	ui.moveLabel->setText("0");
+	ui.fillLabel->setVisible(false);
 	team = 0;
 	teamChosen = false;
-	alreadyInit = false;
+	alreadyInit = false;;
 	playerMoved = false;
-	for (int i = 0; i < buttons.size(); i++){
-		setElement(i, 0);
+	for (int i = 1; i < buttons.size()+1; i++){
+		setElement(i, 48);
 	}
 	fillLCD("000000000");
 	//initClient();
 
 }
-
 
 void joCirclenXapp::setVisibleLabel(){
 	if (ui.fillLabel->isVisible()){
@@ -205,19 +206,35 @@ void joCirclenXapp::readFromServ() {
 
 	QByteArray temp = clientSock->readAll();
 	QString msg(temp);
-	//ui.messageBox->append("Przed getGameState: " + msg);
+	ui.messageBox->append("rfs: MSG: " + msg);
+	ui.messageBox->append("isNewGame: " + QString::number(isNewGame(msg)));
+	
 	string afterCheckMsg = checkNewGame(msg);
 	string withoutState = getVoteState(QString::fromStdString(afterCheckMsg)); //zwraca pozostala wiadomosc bez stanu gry
+	string withoutTurn = getTurn(withoutState); //setturn tez siedzi tu
+	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
 	//ui.messageBox->append("Przed getTurn: " + QString::fromStdString(withoutState));
-	string withoutTurn = getTurn(withoutState);
-	string withoutGame = getGameState(withoutTurn);
-	ui.messageBox->append(QString::fromStdString(withoutGame));
-
-	if (this->turn == team || turn == 0)
-		ui.fillLabel->setVisible(false);
-	else 
-		ui.fillLabel->setVisible(true);
+	if (!isNewGame(msg)){
+		int turn = withoutState[0] - (int)48;
+		//ui.messageBox->append("Current turn: " + QString::number(turn));
+		//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
+		setTurn(turn);
+		
+		string withoutGame = getGameState(withoutTurn);
+		setGameState(withoutTurn.substr(0, 9));
+		ui.messageBox->append(QString::fromStdString(withoutGame));
+		if (this->turn == team || turn == 0)
+			ui.fillLabel->setVisible(false);
+		else if(team != 0)// turn wybrany i rozni sie od naszego wybranego//nawet jak jest 0 - juz nie
+			ui.fillLabel->setVisible(true); 
+	} else {
+		//jesli jest newGame
+		showGameOver(); //ktory?
+		newGame();
+	}
 	
+	
+
 
 	//ui.messageBox->append(str);
 
@@ -241,11 +258,11 @@ void joCirclenXapp::sendMove(QString move){
 	intmove--;
 
 	if (teamChosen){
-		if (!playerMoved){
+		if (!playerMoved){ // !playerMoved i teamchosen
 			QString num = QString::number(intmove);
 			QByteArray msgbyte = num.toUtf8();
 			clientSock->write(msgbyte);
-		} else {
+		} else { //playerMoved i teamchosen
 			QString str("juz wykonales ruch!");
 			ui.messageBox->append(str);
 		}
@@ -253,6 +270,13 @@ void joCirclenXapp::sendMove(QString move){
 	} else {
 		QString str("wybierz team!");
 		ui.messageBox->append(str);
+	}
+}
+
+void joCirclenXapp::setGameState(string game){
+
+	for (int i = 0; i < game.length(); i++){
+		setElement(i + 1, game[i]);
 	}
 }
 
@@ -274,81 +298,85 @@ void joCirclenXapp::setElement(int i, int element){
 }
 
 void joCirclenXapp::setTurn(int turn){
-	if (turn != this->turn){
+	ui.messageBox->append("turn = " + QString::number(turn));
+	if (turn == team && team != 0){
+		ui.messageBox->append("this->team = " + QString::number(this->turn));
 		playerMoved = false;
 	}
 	this->turn = turn;
 }
 
 void joCirclenXapp::setMove1(){
-	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("1");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
+	if (teamChosen)
+		playerMoved = true;
 
 }
 void joCirclenXapp::setMove2(){
 	//ui.V.moveLabel->setText("1");
+
 	ui.moveLabel->setText("2");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove3(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("3");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove4(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("4");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove5(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("5");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove6(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("6");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove7(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("7");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove8(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("8");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
 void joCirclenXapp::setMove9(){
 	//ui.V.moveLabel->setText("1");
 	ui.moveLabel->setText("9");
 	sendMove(ui.moveLabel->text());
-	playerMoved = true;
-
+	if (teamChosen)
+		playerMoved = true;
 }
-
 void joCirclenXapp::startClient() {
 
 	clientSock = new QTcpSocket(this);
 	connect(clientSock, &QTcpSocket::readyRead, this, &joCirclenXapp::readFromServ);
-	clientSock->connectToHost("localhost", 1111);
+	string serverIP = ui.serverIP->text().toStdString();
+	string serverPort = ui.serverPort->text().toStdString();
+	clientSock->connectToHost(QString::fromStdString(serverIP), std::stoi(serverPort));
 	connected = true;
 
 	//QString text = "Wybierz slot gracza:";	//ui.fJoinToServ->setText(text);	//unlockButtons();

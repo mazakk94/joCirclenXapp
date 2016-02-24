@@ -71,6 +71,10 @@ public:
     QLabel *fillLabel;
     QPushButton *pushButton;
     QPushButton *showmsgbutton;
+    QLabel *label_6;
+    QLabel *turnLabel;
+    QLineEdit *serverIP;
+    QLineEdit *serverPort;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -84,10 +88,10 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         messageBox = new QTextEdit(centralWidget);
         messageBox->setObjectName(QStringLiteral("messageBox"));
-        messageBox->setGeometry(QRect(270, 40, 256, 192));
+        messageBox->setGeometry(QRect(270, 101, 256, 141));
         messageLabel = new QLabel(centralWidget);
         messageLabel->setObjectName(QStringLiteral("messageLabel"));
-        messageLabel->setGeometry(QRect(280, 20, 256, 13));
+        messageLabel->setGeometry(QRect(280, 80, 256, 13));
         teamLabel = new QLabel(centralWidget);
         teamLabel->setObjectName(QStringLiteral("teamLabel"));
         teamLabel->setGeometry(QRect(140, 60, 91, 46));
@@ -253,6 +257,18 @@ public:
         showmsgbutton = new QPushButton(centralWidget);
         showmsgbutton->setObjectName(QStringLiteral("showmsgbutton"));
         showmsgbutton->setGeometry(QRect(350, 370, 75, 23));
+        label_6 = new QLabel(centralWidget);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(160, 370, 47, 13));
+        turnLabel = new QLabel(centralWidget);
+        turnLabel->setObjectName(QStringLiteral("turnLabel"));
+        turnLabel->setGeometry(QRect(160, 380, 47, 13));
+        serverIP = new QLineEdit(centralWidget);
+        serverIP->setObjectName(QStringLiteral("serverIP"));
+        serverIP->setGeometry(QRect(270, 50, 121, 20));
+        serverPort = new QLineEdit(centralWidget);
+        serverPort->setObjectName(QStringLiteral("serverPort"));
+        serverPort->setGeometry(QRect(400, 50, 61, 20));
         joCirclenXappClass->setCentralWidget(centralWidget);
         messageBox->raise();
         messageLabel->raise();
@@ -279,6 +295,10 @@ public:
         lcd9->raise();
         pushButton->raise();
         showmsgbutton->raise();
+        label_6->raise();
+        turnLabel->raise();
+        serverIP->raise();
+        serverPort->raise();
         fillLabel->raise();
         menuBar = new QMenuBar(joCirclenXappClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -331,6 +351,10 @@ public:
         fillLabel->setText(QApplication::translate("joCirclenXappClass", "Kolej dru\305\274yny przeciwnej", 0));
         pushButton->setText(QApplication::translate("joCirclenXappClass", "Visible", 0));
         showmsgbutton->setText(QApplication::translate("joCirclenXappClass", "show msg", 0));
+        label_6->setText(QApplication::translate("joCirclenXappClass", "Kolej", 0));
+        turnLabel->setText(QApplication::translate("joCirclenXappClass", "0", 0));
+        serverIP->setText(QApplication::translate("joCirclenXappClass", "localhost", 0));
+        serverPort->setText(QApplication::translate("joCirclenXappClass", "1111", 0));
     } // retranslateUi
 
 };

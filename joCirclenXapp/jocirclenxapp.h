@@ -32,6 +32,7 @@ public slots:
 	std::string getGameState(std::string withoutTurn);
 	void initButtons();
 	void initClient();
+	bool isNewGame(QString msg);
 	void newGame();
 	void readFromServ();
 	void sendTeam(int t);
@@ -40,6 +41,7 @@ public slots:
 	void showGameOver();
 	void setTurn(int turn);
 	void setElement(int i, int element);
+	void setGameState(std::string game);
 	void setVisibleLabel();
 
 	void setMove1();
