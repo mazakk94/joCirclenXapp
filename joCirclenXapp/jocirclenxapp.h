@@ -23,6 +23,7 @@ public:
 public slots:
 
 	void blockButtons();
+	std::string checkNewGame(QString msg);
 	bool chooseTeam(int t);
 	void clientSend();
 	void fillLCD(std::string tab);
@@ -31,6 +32,7 @@ public slots:
 	std::string getGameState(std::string withoutTurn);
 	void initButtons();
 	void initClient();
+	void newGame();
 	void readFromServ();
 	void sendTeam(int t);
 	void readFromLabel();

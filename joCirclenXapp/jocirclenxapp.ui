@@ -497,7 +497,6 @@
      <string>show msg</string>
     </property>
    </widget>
-   <zorder>fillLabel</zorder>
    <zorder>messageBox</zorder>
    <zorder>messageLabel</zorder>
    <zorder>teamLabel</zorder>
@@ -523,6 +522,7 @@
    <zorder>lcd9</zorder>
    <zorder>pushButton</zorder>
    <zorder>showmsgbutton</zorder>
+   <zorder>fillLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

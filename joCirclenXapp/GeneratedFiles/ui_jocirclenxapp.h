@@ -254,7 +254,6 @@ public:
         showmsgbutton->setObjectName(QStringLiteral("showmsgbutton"));
         showmsgbutton->setGeometry(QRect(350, 370, 75, 23));
         joCirclenXappClass->setCentralWidget(centralWidget);
-        fillLabel->raise();
         messageBox->raise();
         messageLabel->raise();
         teamLabel->raise();
@@ -280,6 +279,7 @@ public:
         lcd9->raise();
         pushButton->raise();
         showmsgbutton->raise();
+        fillLabel->raise();
         menuBar = new QMenuBar(joCirclenXappClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 548, 21));
