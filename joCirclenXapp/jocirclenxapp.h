@@ -33,6 +33,7 @@ public slots:
 	std::string getVoteState(QString msg);
 	std::string getTurn(std::string withoutState);
 	std::string getGameState(std::string withoutTurn);
+	int getWinner(std::string msg);
 	void initButtons();
 	void initClient();
 	bool isNewGame(QString msg);
@@ -42,7 +43,7 @@ public slots:
 	void sendTeam(int t);
 	void readFromLabel();
 	void sendMove(QString move);
-	void showGameOver();
+	void showGameOver(int winner);
 	void setTurn(int turn);
 	void setElement(int i, int element);
 	void setGameState(std::string game);

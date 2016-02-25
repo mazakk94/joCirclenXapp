@@ -74,12 +74,12 @@ public:
     {
         if (joCirclenXappClass->objectName().isEmpty())
             joCirclenXappClass->setObjectName(QStringLiteral("joCirclenXappClass"));
-        joCirclenXappClass->resize(578, 462);
+        joCirclenXappClass->resize(578, 556);
         centralWidget = new QWidget(joCirclenXappClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         messageBox = new QTextEdit(centralWidget);
         messageBox->setObjectName(QStringLiteral("messageBox"));
-        messageBox->setGeometry(QRect(30, 380, 221, 21));
+        messageBox->setGeometry(QRect(30, 380, 221, 101));
         messageLabel = new QLabel(centralWidget);
         messageLabel->setObjectName(QStringLiteral("messageLabel"));
         messageLabel->setGeometry(QRect(30, 360, 256, 13));
@@ -240,7 +240,6 @@ public:
         showmsgbutton->raise();
         serverIP->raise();
         serverPort->raise();
-        b3->raise();
         b3->raise();
         b2->raise();
         b1->raise();

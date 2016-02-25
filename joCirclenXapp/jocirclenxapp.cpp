@@ -4,7 +4,7 @@
 /*
 TODO:
 [x] blokowanie wyslania ruchu dopiero gdy dostaniemy info o tym ze zostal zaakceptowany - wysylamy ruch
-[ ] gui poprawic - rysowanie X i O
+[x] gui poprawic - rysowanie X i O
 [x] sprawdzic jak dziala na kilku kompach
 [x] adres IP do wpisania
 [x] problem z polaczeniem sie z serwerem - qtimer
@@ -36,8 +36,8 @@ void joCirclenXapp::blockButtons(){
 }
 
 string joCirclenXapp::checkNewGame(QString msg){
-	string str = msg.toStdString().substr(0, 3);
-	string str2 = "new";
+	string str = msg.toStdString().substr(0, 2);
+	string str2 = "ne";
 	ui.messageBox->append("str1: " + QString::fromStdString(str));
 	ui.messageBox->append("str2: " + QString::fromStdString(str2));
 	if (str.compare(str2) == 0){ //koniec gry! dostalismy info od serwera
@@ -113,18 +113,20 @@ string joCirclenXapp::getGameState(string withoutTurn){
 
 string joCirclenXapp::getVoteState(QString msg){
 	string new_message = "";
-
+	bool flag = true;
 	string lcdArray = "";
 	if (msg.length() > 9){
 		lcdArray = msg.toStdString().substr(0, 9);	//pierwsze 9 znakow to stan planszy
 	} else {
 		QString tmp = "bledna wiadomosc z serwera" + QString::number(msg.length());
 		ui.messageBox->append(tmp);
+		flag = false;
 	}
-	bool flag = true;
+	
 	for (int i = 0; i < lcdArray.size(); i++){
 		if (!isdigit(lcdArray[i])){
 			flag = false;
+			ui.messageBox->append("nie jest cyfra!");
 			break;
 		}
 	}
@@ -148,6 +150,22 @@ string joCirclenXapp::getTurn(string withoutState){
 	
 	new_msg = withoutState.substr(1);
 	return new_msg;
+}
+
+int joCirclenXapp::getWinner(string str){
+	string msg = str.substr(0, 3);
+	string str1 = "ne1";
+	string str2 = "ne2";
+	string str3 = "ne3";
+	if (msg.compare(str1) == 0)
+		return 1;
+	else if (msg.compare(str2) == 0)
+		return 2;
+	else if (msg.compare(str3) == 0)
+		return 3;
+	else 
+		return 0;
+
 }
 
 void joCirclenXapp::initButtons(){
@@ -185,9 +203,12 @@ void joCirclenXapp::initClient(){
 
 bool joCirclenXapp::isNewGame(QString msg){
 	
-	string str = msg.toStdString().substr(0, 3);
-	string str2 = "new";
-	if (str.compare(str2) == 0)
+	string str = msg.toStdString().substr(0, 2);
+	string str1 = "ne";
+	ui.messageBox->append("isNewGame:");
+	ui.messageBox->append(QString::fromStdString(str)); 
+	ui.messageBox->append(QString::fromStdString(str1));
+	if (str.compare(str1) == 0)
 		return true;
 	else 
 		return false;
@@ -245,8 +266,9 @@ void joCirclenXapp::readFromServ() {
 	string withoutTurn = getTurn(withoutState); //setturn tez siedzi tu
 	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
 	//ui.messageBox->append("Przed getTurn: " + QString::fromStdString(withoutState));
-	ui.messageBox->setText(msg);
+	ui.messageBox->append(msg);
 	if (!isNewGame(msg)){
+		ui.messageBox->append("isNewGame = false!");
 		int turn = withoutState[0] - (int)48;
 		//ui.messageBox->append("Current turn: " + QString::number(turn));
 		//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
@@ -260,8 +282,8 @@ void joCirclenXapp::readFromServ() {
 		else if(team != 0)// turn wybrany i rozni sie od naszego wybranego//nawet jak jest 0 - juz nie
 			ui.fillLabel->setVisible(true); 
 	} else {
-		//jesli jest newGame
-		showGameOver(); //ktory?
+		ui.messageBox->append("isNewGame = true!");//jesli jest newGame
+		showGameOver(getWinner(msg.toStdString())); //ktory?
 		newGame();
 	}
 	//ui.messageBox->append(str);
@@ -308,8 +330,22 @@ void joCirclenXapp::setGameState(string game){
 	}
 }
 
-void joCirclenXapp::showGameOver(){
-	QMessageBox::information(this, tr("Koniec gry!"), tr("Wygral gracz nr..."));
+void joCirclenXapp::showGameOver(int winner){
+	ui.messageBox->append(QString::number(winner));
+	switch (winner){
+	case 1:
+		QMessageBox::information(this, tr("Koniec gry!"), tr("Wygral gracz nr1"));
+		break; 
+	case 2:
+		QMessageBox::information(this, tr("Koniec gry!"), tr("Wygral gracz nr2"));
+		break;
+	case 3:
+		QMessageBox::information(this, tr("Koniec gry!"), tr("Remis!"));
+		break;
+	default:
+		QMessageBox::information(this, tr("Koniec gry!"), tr("cos nie dziala!"));
+	}
+		
 }
 
 /* przypisujemy znaki na planszy do glosowania i blokujemy przyciski jak juz zostalo cos tam postawione*/
