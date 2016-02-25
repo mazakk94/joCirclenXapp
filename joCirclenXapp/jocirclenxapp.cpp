@@ -5,12 +5,12 @@
 TODO:
 [x] blokowanie wyslania ruchu dopiero gdy dostaniemy info o tym ze zostal zaakceptowany - wysylamy ruch
 [ ] gui poprawic - rysowanie X i O
-[ ] sprawdzic jak dziala na kilku kompach
-[ ] adres IP do wpisania
-[ ] problem z polaczeniem sie z serwerem - co wtedy?
-[ ] okno koñca gry - wyswietlanie kto wygral i propozycja rozpoczecia nowej gry
-[ ] new game - wszystko wyczyscic i na nowo
-[ ] jezeli jest nowa gra to pokazujemy ukryty interfejs
+[x] sprawdzic jak dziala na kilku kompach
+[x] adres IP do wpisania
+[x] problem z polaczeniem sie z serwerem - qtimer
+[x] okno koñca gry - wyswietlanie kto wygral i propozycja rozpoczecia nowej gry
+[x] new game - wszystko wyczyscic i na nowo
+[x] jezeli jest nowa gra to pokazujemy ukryty interfejs
 */
 
 using namespace std;
@@ -22,12 +22,13 @@ bool teamChosen = false;
 bool alreadyInit = false;
 bool playerMoved = false;
 bool connected = false;
+QTimer * timer;
 
 void joCirclenXapp::blockButtons(){
 	
 	//buttons.push_back(ui.b1);
 	for each (QPushButton* button in buttons) {
-		if (button->text().toStdString().compare("0"))
+		if (button->text().toStdString().compare(""))
 			button->setEnabled(false);
 		else
 			button->setEnabled(true);
@@ -66,12 +67,28 @@ void joCirclenXapp::clientSend() {
 	}
 }
 
+string joCirclenXapp::convertXO(int num){
+	string symbol = "";
+	if (num == 0)
+		return symbol;
+	else if (num == 1)
+		symbol += "X";
+	else if (num == 2)
+		symbol += "O";
+	else symbol += "E";
+	return symbol;
+}
+
 void joCirclenXapp::fillLCD(string tabq){
 
 	string tabl = tabq.substr(0,9);
 	vector<int> tab;
-	for (int i = 0; i < tabl.size(); i++)
-		tab.push_back(tabl[i] - (int)48);
+	for (int i = 0; i < tabl.size(); i++){
+		int num = tabl[i] - (int)48;
+		//string symbol = convertXO(num);
+		tab.push_back(num);
+
+	}
 
 	ui.messageEdit->setText(QString::number(tab.size()));
 	ui.lcd1->setText(QString::number(tab[0]));
@@ -157,7 +174,7 @@ void joCirclenXapp::initClient(){
 			}
 			sendTeam(team);
 			alreadyInit = true;
-			ui.teamLabel->setText(QString::number(team));
+			ui.teamLabel->setText(QString::fromStdString(convertXO(team)));
 		}
 	} else {
 		QString str("juz wybrales team!");
@@ -178,7 +195,7 @@ bool joCirclenXapp::isNewGame(QString msg){
 
 void joCirclenXapp::newGame(){
 	ui.messageBox->append("new game");
-	ui.teamLabel->setText(QString::number(0));
+	ui.teamLabel->setText("BRAK");
 	ui.moveLabel->setText("0");
 	ui.fillLabel->setVisible(false);
 	team = 0;
@@ -193,6 +210,12 @@ void joCirclenXapp::newGame(){
 
 }
 
+void joCirclenXapp::onTimeout(){
+	QMessageBox::information(this, tr("Problem"), tr("Nie udalo sie polaczyc z serwerem"));
+	alreadyInit = false;
+	teamChosen = false;
+}
+
 void joCirclenXapp::setVisibleLabel(){
 	if (ui.fillLabel->isVisible()){
 		ui.fillLabel->setVisible(false);
@@ -205,6 +228,14 @@ void joCirclenXapp::setVisibleLabel(){
 void joCirclenXapp::readFromServ() {
 
 	QByteArray temp = clientSock->readAll();
+
+	if (clientSock->state() == QAbstractSocket::ConnectedState){ //if connected, no timeout
+		ui.messageBox->append("connected!");
+		connected = true;
+		timer->stop();
+	}
+	
+
 	QString msg(temp);
 	ui.messageBox->append("rfs: MSG: " + msg);
 	ui.messageBox->append("isNewGame: " + QString::number(isNewGame(msg)));
@@ -214,6 +245,7 @@ void joCirclenXapp::readFromServ() {
 	string withoutTurn = getTurn(withoutState); //setturn tez siedzi tu
 	//ui.messageBox->append("This -> turn: " + QString::number(this->turn));
 	//ui.messageBox->append("Przed getTurn: " + QString::fromStdString(withoutState));
+	ui.messageBox->setText(msg);
 	if (!isNewGame(msg)){
 		int turn = withoutState[0] - (int)48;
 		//ui.messageBox->append("Current turn: " + QString::number(turn));
@@ -232,10 +264,6 @@ void joCirclenXapp::readFromServ() {
 		showGameOver(); //ktory?
 		newGame();
 	}
-	
-	
-
-
 	//ui.messageBox->append(str);
 
 	//int x = str.split(" ")[0].toInt();
@@ -288,8 +316,8 @@ void joCirclenXapp::showGameOver(){
 void joCirclenXapp::setElement(int i, int element){
 	int num = element - 48;
 	//buttons.[i-1]
-	if (buttons.size() > i-1)
-		buttons.at(i - 1)->setText(QString::number(num));
+	if (buttons.size() > i - 1)
+		buttons.at(i - 1)->setText(QString::fromStdString(convertXO(num)));
 	else 
 		ui.messageBox->append("przekroczylbym rozmiar wektora! num: " + QString::number(num) 
 			+ ", i-1: " + QString::number(i) + ", size: " + QString::number(buttons.size()));
@@ -370,6 +398,7 @@ void joCirclenXapp::setMove9(){
 	if (teamChosen)
 		playerMoved = true;
 }
+
 void joCirclenXapp::startClient() {
 
 	clientSock = new QTcpSocket(this);
@@ -377,7 +406,18 @@ void joCirclenXapp::startClient() {
 	string serverIP = ui.serverIP->text().toStdString();
 	string serverPort = ui.serverPort->text().toStdString();
 	clientSock->connectToHost(QString::fromStdString(serverIP), std::stoi(serverPort));
-	connected = true;
+	
+	// = new QTimer();
+
+	timer = new QTimer();
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+	int msec = 3000;
+	timer->setInterval(msec);
+	timer->setSingleShot(true);
+	timer->start();
+
+	
+	//connected = true;
 
 	//QString text = "Wybierz slot gracza:";	//ui.fJoinToServ->setText(text);	//unlockButtons();
 }
@@ -410,7 +450,8 @@ joCirclenXapp::joCirclenXapp(QWidget *parent)
 	QObject::connect(ui.team2, SIGNAL(clicked()), this, SLOT(initClient()));
 	QObject::connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(setVisibleLabel()));
 	QObject::connect(ui.showmsgbutton, SIGNAL(clicked()), this, SLOT(showGameOver()));
-	
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(quit()));
+
 	{
 		QObject::connect(ui.b1, SIGNAL(clicked()), this, SLOT(setMove1()));
 		QObject::connect(ui.b2, SIGNAL(clicked()), this, SLOT(setMove2()));
@@ -422,6 +463,9 @@ joCirclenXapp::joCirclenXapp(QWidget *parent)
 		QObject::connect(ui.b8, SIGNAL(clicked()), this, SLOT(setMove8()));
 		QObject::connect(ui.b9, SIGNAL(clicked()), this, SLOT(setMove9()));
 	}
+
+	
+
 	initButtons();
 }
 

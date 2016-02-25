@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>548</width>
-    <height>464</height>
+    <width>578</width>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,18 +17,18 @@
    <widget class="QTextEdit" name="messageBox">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>101</y>
-      <width>256</width>
-      <height>141</height>
+      <x>30</x>
+      <y>380</y>
+      <width>221</width>
+      <height>21</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="messageLabel">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>80</y>
+      <x>30</x>
+      <y>360</y>
       <width>256</width>
       <height>13</height>
      </rect>
@@ -40,8 +40,8 @@
    <widget class="QLabel" name="teamLabel">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>60</y>
+      <x>20</x>
+      <y>83</y>
       <width>91</width>
       <height>46</height>
      </rect>
@@ -70,8 +70,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>27</y>
+      <x>20</x>
+      <y>50</y>
       <width>91</width>
       <height>47</height>
      </rect>
@@ -83,47 +83,50 @@
    <widget class="QPushButton" name="team2">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>90</y>
-      <width>81</width>
-      <height>23</height>
+      <x>230</x>
+      <y>70</y>
+      <width>91</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>2</string>
+     <string>O</string>
     </property>
    </widget>
    <widget class="QPushButton" name="team1">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>61</y>
-      <width>81</width>
-      <height>23</height>
+      <x>130</x>
+      <y>70</y>
+      <width>91</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>1</string>
+     <string>X</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>19</x>
-      <y>15</y>
-      <width>101</width>
-      <height>39</height>
+      <x>130</x>
+      <y>50</y>
+      <width>191</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Dołącz do drużyny</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="sendButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>180</y>
+      <x>350</x>
+      <y>170</y>
       <width>221</width>
       <height>23</height>
      </rect>
@@ -135,117 +138,18 @@
    <widget class="QLineEdit" name="messageEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>211</width>
+      <x>350</x>
+      <y>140</y>
+      <width>221</width>
       <height>20</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>240</y>
-      <width>131</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="X">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <item>
-      <layout class="QHBoxLayout" name="O1">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="b1">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b2">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b3">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="O2">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="b4">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b5">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b6">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="O3">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="b7">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b8">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="b9">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="moveLabel">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>280</y>
+      <x>30</x>
+      <y>320</y>
       <width>72</width>
       <height>20</height>
      </rect>
@@ -260,8 +164,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>250</y>
+      <x>30</x>
+      <y>290</y>
       <width>72</width>
       <height>32</height>
      </rect>
@@ -273,8 +177,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>240</y>
+      <x>20</x>
+      <y>140</y>
       <width>81</width>
       <height>16</height>
      </rect>
@@ -289,9 +193,9 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>220</y>
-      <width>131</width>
+      <x>130</x>
+      <y>120</y>
+      <width>201</width>
       <height>16</height>
      </rect>
     </property>
@@ -305,8 +209,8 @@
    <widget class="QLabel" name="lcd1">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>260</y>
+      <x>10</x>
+      <y>160</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -321,8 +225,8 @@
    <widget class="QLabel" name="lcd2">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>260</y>
+      <x>50</x>
+      <y>160</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -337,8 +241,8 @@
    <widget class="QLabel" name="lcd3">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>260</y>
+      <x>90</x>
+      <y>160</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -353,8 +257,8 @@
    <widget class="QLabel" name="lcd4">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>300</y>
+      <x>10</x>
+      <y>200</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -369,8 +273,8 @@
    <widget class="QLabel" name="lcd5">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>300</y>
+      <x>50</x>
+      <y>200</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -385,8 +289,8 @@
    <widget class="QLabel" name="lcd6">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>300</y>
+      <x>90</x>
+      <y>200</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -401,8 +305,8 @@
    <widget class="QLabel" name="lcd7">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>340</y>
+      <x>10</x>
+      <y>240</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -417,8 +321,8 @@
    <widget class="QLabel" name="lcd8">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>340</y>
+      <x>50</x>
+      <y>240</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -433,8 +337,8 @@
    <widget class="QLabel" name="lcd9">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>340</y>
+      <x>90</x>
+      <y>240</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -452,14 +356,20 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>120</x>
       <y>20</y>
-      <width>531</width>
-      <height>341</height>
+      <width>361</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="text">
      <string>Kolej drużyny przeciwnej</string>
@@ -474,8 +384,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>370</y>
+      <x>430</x>
+      <y>200</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -488,7 +398,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>370</y>
+      <y>200</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -497,38 +407,12 @@
      <string>show msg</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>370</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Kolej</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="turnLabel">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>380</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="serverIP">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>121</width>
+      <x>30</x>
+      <y>20</y>
+      <width>141</width>
       <height>20</height>
      </rect>
     </property>
@@ -539,14 +423,131 @@
    <widget class="QLineEdit" name="serverPort">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>50</y>
-      <width>61</width>
+      <x>180</x>
+      <y>20</y>
+      <width>141</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>1111</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>140</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>140</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b1">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>140</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b6">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>210</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b4">
+    <property name="geometry">
+     <rect>
+      <x>131</x>
+      <y>210</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b5">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>210</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b9">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>280</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b7">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>280</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="b8">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>280</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
    <zorder>messageBox</zorder>
@@ -558,7 +559,6 @@
    <zorder>label</zorder>
    <zorder>sendButton</zorder>
    <zorder>messageEdit</zorder>
-   <zorder>layoutWidget</zorder>
    <zorder>moveLabel</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
@@ -574,10 +574,18 @@
    <zorder>lcd9</zorder>
    <zorder>pushButton</zorder>
    <zorder>showmsgbutton</zorder>
-   <zorder>label_6</zorder>
-   <zorder>turnLabel</zorder>
    <zorder>serverIP</zorder>
    <zorder>serverPort</zorder>
+   <zorder>b3</zorder>
+   <zorder>b3</zorder>
+   <zorder>b2</zorder>
+   <zorder>b1</zorder>
+   <zorder>b6</zorder>
+   <zorder>b4</zorder>
+   <zorder>b5</zorder>
+   <zorder>b9</zorder>
+   <zorder>b7</zorder>
+   <zorder>b8</zorder>
    <zorder>fillLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -585,7 +593,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>548</width>
+     <width>578</width>
      <height>21</height>
     </rect>
    </property>

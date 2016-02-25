@@ -7,8 +7,10 @@
 #include <QtNetwork>
 #include <QMessageBox>
 //#include <iostream>
+#include <QTimer>
 #include <ctype.h>
 #include <string>
+#include <time.h>
 //#include <vector>
 
 class joCirclenXapp : public QMainWindow
@@ -26,6 +28,7 @@ public slots:
 	std::string checkNewGame(QString msg);
 	bool chooseTeam(int t);
 	void clientSend();
+	std::string convertXO(int num);
 	void fillLCD(std::string tab);
 	std::string getVoteState(QString msg);
 	std::string getTurn(std::string withoutState);
@@ -34,6 +37,7 @@ public slots:
 	void initClient();
 	bool isNewGame(QString msg);
 	void newGame();
+	void onTimeout();
 	void readFromServ();
 	void sendTeam(int t);
 	void readFromLabel();
